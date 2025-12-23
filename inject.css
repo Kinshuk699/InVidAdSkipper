@@ -1,0 +1,197 @@
+/**
+ * inject.css
+ * 
+ * SponsorJumper AI - Skip Button Styles
+ * 
+ * Modern, dark-mode themed button that overlays the YouTube video player.
+ * Designed to be non-intrusive but easily accessible.
+ */
+
+/* ==================== SKIP BUTTON ==================== */
+
+.sponsorjumper-skip-button {
+  /* Positioning - bottom right of video player */
+  position: absolute;
+  bottom: 80px;
+  right: 20px;
+  z-index: 9999;
+  
+  /* Hidden by default, shown when sponsor detected */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(20px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Flexbox layout */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  /* Sizing & spacing */
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  
+  /* Dark mode styling */
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  
+  /* Text styling */
+  color: #ffffff;
+  font-family: 'YouTube Sans', 'Roboto', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.3px;
+  
+  /* Interaction */
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Visible state */
+.sponsorjumper-skip-button.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(0);
+}
+
+/* Hover state */
+.sponsorjumper-skip-button:hover {
+  background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%);
+  box-shadow: 
+    0 6px 20px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transform: translateX(0) scale(1.02);
+}
+
+/* Active/pressed state */
+.sponsorjumper-skip-button:active {
+  transform: translateX(0) scale(0.98);
+  box-shadow: 
+    0 2px 10px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Focus state for accessibility */
+.sponsorjumper-skip-button:focus {
+  outline: none;
+  box-shadow: 
+    0 4px 15px rgba(0, 0, 0, 0.4),
+    0 0 0 2px #4a9eff,
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* ==================== BUTTON ELEMENTS ==================== */
+
+/* Skip icon */
+.sponsorjumper-icon {
+  font-size: 16px;
+  line-height: 1;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.3));
+}
+
+/* Main text */
+.sponsorjumper-text {
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Time indicator */
+.sponsorjumper-time {
+  padding: 3px 8px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ==================== ANIMATIONS ==================== */
+
+/* Subtle pulse animation for attention */
+@keyframes sponsorjumper-pulse {
+  0%, 100% {
+    box-shadow: 
+      0 4px 15px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(255, 255, 255, 0.1),
+      0 0 0 0 rgba(74, 158, 255, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+  50% {
+    box-shadow: 
+      0 4px 15px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(255, 255, 255, 0.1),
+      0 0 0 8px rgba(74, 158, 255, 0),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+}
+
+.sponsorjumper-skip-button.visible {
+  animation: sponsorjumper-pulse 2s ease-in-out 1;
+}
+
+/* ==================== RESPONSIVE ADJUSTMENTS ==================== */
+
+/* Smaller button on mobile/small players */
+@media (max-width: 640px) {
+  .sponsorjumper-skip-button {
+    bottom: 60px;
+    right: 10px;
+    padding: 8px 12px;
+    font-size: 12px;
+    gap: 6px;
+  }
+  
+  .sponsorjumper-icon {
+    font-size: 14px;
+  }
+  
+  .sponsorjumper-time {
+    padding: 2px 6px;
+    font-size: 10px;
+  }
+}
+
+/* Theater mode / Fullscreen adjustments */
+.ytp-fullscreen .sponsorjumper-skip-button {
+  bottom: 100px;
+  right: 30px;
+  padding: 12px 20px;
+  font-size: 16px;
+}
+
+.ytp-fullscreen .sponsorjumper-icon {
+  font-size: 18px;
+}
+
+.ytp-fullscreen .sponsorjumper-time {
+  padding: 4px 10px;
+  font-size: 14px;
+}
+
+/* ==================== DARK/LIGHT MODE SUPPORT ==================== */
+
+/* The button is dark by default, which works well on YouTube's player */
+/* This ensures it also looks good if user has light theme on youtube.com */
+
+@media (prefers-color-scheme: light) {
+  .sponsorjumper-skip-button {
+    /* Keep dark theme for consistency on video player */
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    color: #ffffff;
+  }
+}
+
+/* ==================== HIDE DURING ADS ==================== */
+
+/* Don't show our button during YouTube's own ads */
+.ad-showing .sponsorjumper-skip-button {
+  display: none !important;
+}
